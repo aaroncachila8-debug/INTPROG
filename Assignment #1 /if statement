@@ -1,7 +1,0 @@
-<?php
-$grade = 87;
-
-if ($grade >= 75) {
-    echo "You passed the exam.";
-}
-?>
