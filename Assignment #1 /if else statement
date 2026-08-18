@@ -1,0 +1,9 @@
+<?php
+$score = 73;
+
+if ($score >= 75) {
+    echo "You passed!";
+} else {
+    echo "You failed.";
+}
+?>
