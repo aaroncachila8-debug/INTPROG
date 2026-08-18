@@ -1,0 +1,17 @@
+<?php
+$color = "yellow";
+
+switch ($color) {
+    case "red":
+        echo "Stop!";
+        break;
+    case "yellow":
+        echo "Get ready!";
+        break;
+    case "green":
+        echo "Go!";
+        break;
+    default:
+        echo "Invalid color.";
+}
+?>
