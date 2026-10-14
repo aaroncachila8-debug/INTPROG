@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHttpRequest Lab</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Exploring XMLHttpRequest</h2>
+
+    <button id="loadData">Load Post Data</button>
+
+    <div id="output">
+        Click the button to load post data.
+    </div>
+
+    <script>
+        document.getElementById("loadData").addEventListener("click", function() {
+            const xhr = new XMLHttpRequest();
+            const output = document.getElementById("output");
+
+            output.textContent = "Loading data...";
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            const data = JSON.parse(xhr.responseText);
+
+                            const title = document.createElement("h3");
+                            title.textContent = "Post Title: " + data.title;
+
+                            const content = document.createElement("p");
+                            content.textContent = "Content: " + data.body;
+
+                            output.replaceChildren(title, content);
+                        } catch (error) {
+                            output.textContent = "Error: Unable to process the response.";
+                            output.className = "error";
+                        }
+                    } else {
+                        output.textContent =
+                            "Error: " + xhr.status + " - " + xhr.statusText;
+                        output.className = "error";
+                    }
+                }
+            };
+
+            xhr.onerror = function() {
+                output.textContent =
+                    "Error: Network problem. Please check your internet connection.";
+                output.className = "error";
+            };
+
+            xhr.open(
+                "GET",
+                "https://jsonplaceholder.typicode.com/posts/1",
+                true
+            );
+
+            xhr.send();
+        });
+    </script>
+
+</body>
+</html>
